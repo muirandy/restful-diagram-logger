@@ -76,6 +76,15 @@ class RestfulDiagramLoggerShould {
     }
 
     @Test
+    void retrieveLogsWrittenByAnotherProcess() {
+        createRestfulLogger().log(log);
+
+        Logs logs = diagramLogger.read();
+
+        assertThat(logs.getLogs()).containsExactly(log);
+    }
+
+    @Test
     void retrieveEmptyLogsForGivenId() {
         diagramLogger.markEnd(logId);
 
