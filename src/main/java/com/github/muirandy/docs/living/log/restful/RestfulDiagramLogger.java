@@ -1,57 +1,45 @@
 package com.github.muirandy.docs.living.log.restful;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.github.muirandy.docs.living.api.DiagramLogger;
 import com.github.muirandy.docs.living.api.Log;
 import com.github.muirandy.docs.living.api.Logs;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.jboss.resteasy.client.jaxrs.internal.ResteasyClientBuilderImpl;
 
-import static groovy.json.JsonOutput.toJson;
-import static io.restassured.RestAssured.given;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
 
 public class RestfulDiagramLogger implements DiagramLogger {
-    private String restfulLoggerHost;
-    private Integer restfulLoggerPort;
+    private LoggerClient proxy;
 
     public RestfulDiagramLogger(String restfulLoggerHost, Integer restfulLoggerPort) {
-        this.restfulLoggerHost = restfulLoggerHost;
-        this.restfulLoggerPort = restfulLoggerPort;
+        String path = "http://" + restfulLoggerHost + ":" + restfulLoggerPort;
+        ResteasyClient client = new ResteasyClientBuilderImpl().build();
+        client.register(JacksonJaxbJsonProvider.class);
+        ResteasyWebTarget target = client.target(UriBuilder.fromPath(path));
+        proxy = target.proxy(LoggerClient.class);
     }
 
     @Override
     public void log(Log log) {
-        given()
-                .baseUri("http://" + restfulLoggerHost)
-                .port(restfulLoggerPort)
-                .header("Content-Type", "application/json")
-                .when()
-                .body(toJson(log))
-                .post("/log");
+        Response loggerResponse = proxy.log(log);
+        loggerResponse.close();
     }
 
     @Override
     public Logs read() {
-        return given()
-                .baseUri("http://" + restfulLoggerHost)
-                .port(restfulLoggerPort)
-                .when()
-                .get("/log/read")
-                .getBody().as(Logs.class);
+        return proxy.readAll();
     }
 
     @Override
     public void markEnd(String logId) {
-        given()
-                .baseUri("http://" + restfulLoggerHost)
-                .port(restfulLoggerPort)
-                .when().post("/log/markEnd/" + logId);
+        proxy.markEnd(logId);
     }
 
     @Override
     public Logs read(String logId) {
-        return given()
-                .baseUri("http://" + restfulLoggerHost)
-                .port(restfulLoggerPort)
-                .when()
-                .get("/log/read/" + logId)
-                .getBody().as(Logs.class);
+        return proxy.read(logId);
     }
 }
