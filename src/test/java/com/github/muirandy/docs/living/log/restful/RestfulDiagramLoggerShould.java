@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers
 class RestfulDiagramLoggerShould {
 
+    private static final String PROTOCOL = "Protocol";
     private static final String LOG_MESSAGE = "Message";
     private static final String SECOND_LOG_MESSAGE = "Second Message";
     private static final String BODY = "Body";
@@ -27,14 +28,15 @@ class RestfulDiagramLoggerShould {
 
     @Container
     private final GenericContainer RESTFUL_LOGGER =
-            new GenericContainer(DockerImageName.parse("muirandy/simple-diagram-logger:1.0"))
-            .waitingFor(
-                    Wait.forLogMessage(".*Listening on:.*", 1)
-            );
+            new GenericContainer(DockerImageName.parse("muirandy/simple-diagram-logger:latest"))
+                    .withExposedPorts(8080)
+                    .waitingFor(
+                            Wait.forLogMessage(".*Listening on:.*", 1)
+                    );
 
     private DiagramLogger diagramLogger;
-    private Log log = new Log(LOG_MESSAGE, BODY);
-    private Log secondLog = new Log(SECOND_LOG_MESSAGE, SECOND_BODY);
+    private Log log = new Log(PROTOCOL, LOG_MESSAGE, BODY);
+    private Log secondLog = new Log(PROTOCOL, SECOND_LOG_MESSAGE, SECOND_BODY);
     private String restfulLoggerHost;
     private Integer restfulLoggerPort;
     private String logId = UUID.randomUUID().toString();

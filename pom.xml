@@ -37,15 +37,10 @@
     </properties>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.commons</groupId>-->
-<!--            <artifactId>commons-lang3</artifactId>-->
-<!--            <version>3.9</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.github.muirandy</groupId>
             <artifactId>distributed-living-documentation-api</artifactId>
-            <version>1.5</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -74,25 +69,15 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
-            <version>1.15.0</version>
+            <version>1.17.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.15.0</version>
+            <version>1.17.3</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.rest-assured</groupId>-->
-<!--            <artifactId>rest-assured</artifactId>-->
-<!--            <version>4.3.3</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--            <artifactId>jackson-databind</artifactId>-->
-<!--            <version>2.12.1</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-client</artifactId>
