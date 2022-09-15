@@ -7,7 +7,7 @@
     <url>https://github.com/muirandy/restful-diagram-logger</url>
     <groupId>com.github.muirandy</groupId>
     <artifactId>restful-diagram-logger</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -28,7 +28,7 @@
         <connection>scm:git:git@github.com:muirandy/restful-diagram-logger.git</connection>
         <developerConnection>scm:git:git@github.com:muirandy/restful-diagram-logger.git</developerConnection>
         <url>git@github.com:muirandy/restful-diagram-logger.git</url>
-        <tag>HEAD</tag>
+        <tag>restful-diagram-logger-1.2</tag>
     </scm>
 
     <properties>
