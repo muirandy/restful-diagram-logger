@@ -36,7 +36,7 @@ class RestfulDiagramLoggerShould {
 
     @Container
     private final GenericContainer RESTFUL_LOGGER =
-            new GenericContainer(DockerImageName.parse("muirandy/simple-diagram-logger:latest"))
+            new GenericContainer(DockerImageName.parse("ghcr.io/muirandy/simple-log:multi-5cae3a0fe2cbadb8df3ec00388636219e3516dc0"))
                     .withExposedPorts(8080)
                     .withEnv("license", license())
                     .withEnv("licenseKey", LICENSE_KEY)
