@@ -30,6 +30,7 @@ class RestfulDiagramLoggerShould {
     private static final String BODY = "Body";
     private static final String SECOND_BODY = "Second Body";
     private static final String LICENSE_KEY = "CED3B2-D3E679-079630-636028-9E2E7F-V3";
+    private static final String ENV_VAR_LICENSE = "LICENSE";
 
     private static final int RESTFUL_LOGGER_INTERNAL_PORT = 8080;
 
@@ -139,6 +140,17 @@ class RestfulDiagramLoggerShould {
     }
 
     private String license() {
+        String envVarLicenseContent = readEnvVar(ENV_VAR_LICENSE);
+        if (null == envVarLicenseContent)
+            return readLicenseFromEnvFile();
+        return envVarLicenseContent;
+    }
+
+    private String readEnvVar(String envVarName) {
+        return System.getenv(envVarName);
+    }
+
+    private String readLicenseFromEnvFile() {
         String envContent = "No License File Found in .env! Its not in git!";
         try {
             envContent = Files.readString(Path.of(".env"));
@@ -148,4 +160,5 @@ class RestfulDiagramLoggerShould {
             throw new RuntimeException(e);
         }
     }
+
 }
