@@ -10,6 +10,7 @@ import org.jboss.resteasy.client.jaxrs.internal.ResteasyClientBuilderImpl;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import java.util.List;
 
 public class RestfulDiagramLogger implements DiagramLogger {
     private LoggerClient proxy;
@@ -39,7 +40,17 @@ public class RestfulDiagramLogger implements DiagramLogger {
     }
 
     @Override
+    public void markGoldenMaster(String sequence_diagram_id) {
+        proxy.markGoldenMaster(sequence_diagram_id);
+    }
+
+    @Override
     public Logs read(String logId) {
         return proxy.read(logId);
+    }
+
+    @Override
+    public List<Logs> readGoldenMaster(String sequence_diagram_id) {
+        return proxy.readGoldenMaster(sequence_diagram_id);
     }
 }
